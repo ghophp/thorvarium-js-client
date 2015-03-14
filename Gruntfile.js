@@ -34,7 +34,7 @@ module.exports = function ( grunt ) {
      */
     pkg: grunt.file.readJSON("package.json"),
 
-    general: grunt.file.readJSON("config.json"),
+    general: grunt.file.readJSON("config."+process.env.ENVIRONMENT+".json"),
 
     /**
      * The banner is the comment that is placed at the top of our compiled 
@@ -599,6 +599,7 @@ module.exports = function ( grunt ) {
           data: {
             scripts: jsFiles,
             styles: cssFiles,
+            api: grunt.config( 'general.api' ),
             ws: grunt.config( 'general.ws' ),
             assets: grunt.config( 'general.assets' ),
             version: grunt.config( 'pkg.version' )

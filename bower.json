@@ -1,7 +1,8 @@
 {
-  "name": "ng-boilerplate",
-  "version": "0.3.2",
-  "devDependencies": {
+  "name": "thorvarium",
+  "version": "0.0.1",
+  "devDependencies": {},
+  "dependencies": {
     "angular": "~1.2",
     "jquery": "~1.9.1",
     "angular-mocks": "~1.2",
@@ -11,6 +12,5 @@
     "angular-md5": "*",
     "jquery.cookie": "*",
     "underscore": "*"
-  },
-  "dependencies": {}
+  }
 }

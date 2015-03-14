@@ -25,8 +25,9 @@ angular.module( 'thorvarium.login', [
     if ($scope.nickname && $scope.password) {
       
       var data = {nickname: $scope.nickname, password: md5.createHash($scope.password) };
-      $.post('/login', data, function(result) {
+      $.post(apiUrl + '/login', data, function(result) {
         
+        console.log('result: ', result);
         if (typeof result.uuid !== 'undefined') {
           
           $rootScope.user = result.user;
