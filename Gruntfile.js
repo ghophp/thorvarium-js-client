@@ -23,6 +23,10 @@ module.exports = function ( grunt ) {
    */
   var userConfig = require( './build.config.js' );
 
+  var env = typeof process.env.ENVIRONMENT !== 'undefined' ? 
+    process.env.ENVIRONMENT : 
+    'development';
+
   /**
    * This is the configuration object Grunt uses to give each plugin its 
    * instructions.
@@ -34,7 +38,7 @@ module.exports = function ( grunt ) {
      */
     pkg: grunt.file.readJSON("package.json"),
 
-    general: grunt.file.readJSON("config."+process.env.ENVIRONMENT+".json"),
+    general: grunt.file.readJSON("config."+env+".json"),
 
     /**
      * The banner is the comment that is placed at the top of our compiled 
