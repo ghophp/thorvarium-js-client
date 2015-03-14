@@ -17,7 +17,12 @@ coverage
 .grunt
 
 # Compiled binary addons (http://nodejs.org/api/addons.html)
-build/Release
+vendor
+bin
+build
+config.json
+*.sw*
+*~
 
 # Dependency directory
 # Commenting this out is preferred by some people, see
