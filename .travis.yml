@@ -7,9 +7,10 @@ before_script:
 - npm install bower
 - bower install
 - npm install grunt-cli
-- grunt build
+- grunt
 deploy:
   provider: s3
   access_key_id: AKIAIOXAGGTDWK53UFFA
   secret_access_key: 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
   bucket: thorvarium
+  local_dir: bin
