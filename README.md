@@ -17,12 +17,3 @@ Basic angular stack `grunt-cli` and `bower`
 I recommend you to use `mongoose` to run the files statically like:
 
 	mongoose -document_root bin
-
-###TODO
-=======
-
-* Server active the turn just when both clients sent the turn_start, this could hang in lag
-* When the tab is inactive, the client simulate the game buggy
-* Disable ready and clean movements at the running state at client
-* Ignore inputs at the running stage
-* Fix scroll at chat
