@@ -10,8 +10,8 @@ before_script:
 - grunt
 deploy:
   provider: s3
-  access_key_id: AKIAIOXAGGTDWK53UFFA
-  secret_access_key: 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
+  access_key_id: <%= ENV['S3_ACCESS_KEY_ID'] %>
+  secret_access_key: <%= ENV['S3_SECRET_KEY'] %>
   bucket: thorvarium
   skip_cleanup: true
   local_dir: bin
