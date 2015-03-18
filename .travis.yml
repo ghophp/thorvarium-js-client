@@ -1,7 +1,12 @@
 language: node_js
 node_js:
 - '0.10'
-env: ENVIRONMENT=production
+env:
+  matrix:
+  - ENVIRONMENT=production
+  global:
+  - secure: f5TKyz9iDRMlEdsNJBmKp+QYAc8szxmLrpVYjpFEcQocQCyf/0TmaEEKGpugmoGB8ok/5/Qm0KJGKbmDZPLIX9YBcMq8+uXNabqIJOyVJRFXn50xQfuKfJpJerWhww0CDQWKjuK7gBfdcG1PLSNEoeffXtYSq5QfT7jO8DGyzss=
+  - secure: 3sdpMY00iIX4gzYesjjz5Wz7mK3js5BVFA7ivtNc9GGYJuMqiAtQuHcySWx39pox1n1jhCw2sNiZIHAhqlcGfBgegGLUy6yyRmpsWgYcZa2wldxkEim2oXSEPPYvr3fUi6p6hN5ed9HtxX9L59TVegECubJDzvnrNjuP+JfqKNc=
 before_script:
 - npm install
 - npm install bower
@@ -10,8 +15,8 @@ before_script:
 - grunt
 deploy:
   provider: s3
-  access_key_id: <%= ENV['S3_ACCESS_KEY_ID'] %>
-  secret_access_key: <%= ENV['S3_SECRET_KEY'] %>
+  access_key_id: "<%= ENV['S3_ACCESS_KEY_ID'] %>"
+  secret_access_key: "<%= ENV['S3_SECRET_KEY'] %>"
   bucket: thorvarium
   skip_cleanup: true
   local_dir: bin
