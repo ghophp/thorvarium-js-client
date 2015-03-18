@@ -1,11 +1,7 @@
 language: node_js
 node_js:
 - '0.10'
-env: 
-	matrix:
-	- ENVIRONMENT=production 
-	- secure: f5TKyz9iDRMlEdsNJBmKp+QYAc8szxmLrpVYjpFEcQocQCyf/0TmaEEKGpugmoGB8ok/5/Qm0KJGKbmDZPLIX9YBcMq8+uXNabqIJOyVJRFXn50xQfuKfJpJerWhww0CDQWKjuK7gBfdcG1PLSNEoeffXtYSq5QfT7jO8DGyzss=
-	- secure: 3sdpMY00iIX4gzYesjjz5Wz7mK3js5BVFA7ivtNc9GGYJuMqiAtQuHcySWx39pox1n1jhCw2sNiZIHAhqlcGfBgegGLUy6yyRmpsWgYcZa2wldxkEim2oXSEPPYvr3fUi6p6hN5ed9HtxX9L59TVegECubJDzvnrNjuP+JfqKNc=
+env: ENVIRONMENT=production
 before_script:
 - npm install
 - npm install bower
@@ -14,8 +10,10 @@ before_script:
 - grunt
 deploy:
   provider: s3
-  access_key_id: <%= ENV['S3_ACCESS_KEY_ID'] %>
-  secret_access_key: <%= ENV['S3_SECRET_KEY'] %>
   bucket: thorvarium
   skip_cleanup: true
   local_dir: bin
+  secret_access_key:
+    secure: 5RgFkgZgbx/BYt62ZABa7zdZ0CpZwhZ3DbH+WWZHJeYuSCzJR5FBls32753LQQorjzCn/9lrti6fu1658X9bmr+JSrTDX1icSIvbeCE3XdyQffJgfrUEDahL+eyvu/petarBIhwZrMnTZPLB238aekiwQqYKW0CEHQTrMPfjSUc=
+  access_key_id:
+    secure: B/fu74fYgoCtGiRLyU1i7K9R6mCmhBd9d5gdd3/AX01fA72hQwGwpCPd/LsDhcO9d+CT/F03CrJiiikhd+GImVGPz8/RDeocxyzuDgwpWpGkPz3Q0WRFAWe7/9Bpo4cYGtSv6Y7nZ8uYqy4jdRp+9SYWDTNs+Ri/avYfkRARoPw=
