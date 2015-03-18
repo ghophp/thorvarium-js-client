@@ -11,9 +11,9 @@ before_script:
 deploy:
   provider: s3
   access_key_id: 
-    secure: f5TKyz9iDRMlEdsNJBmKp+QYAc8szxmLrpVYjpFEcQocQCyf/0TmaEEKGpugmoGB8ok/5/Qm0KJGKbmDZPLIX9YBcMq8+uXNabqIJOyVJRFXn50xQfuKfJpJerWhww0CDQWKjuK7gBfdcG1PLSNEoeffXtYSq5QfT7jO8DGyzss=
-  secret_access_key:
     secure: 3sdpMY00iIX4gzYesjjz5Wz7mK3js5BVFA7ivtNc9GGYJuMqiAtQuHcySWx39pox1n1jhCw2sNiZIHAhqlcGfBgegGLUy6yyRmpsWgYcZa2wldxkEim2oXSEPPYvr3fUi6p6hN5ed9HtxX9L59TVegECubJDzvnrNjuP+JfqKNc=
+  secret_access_key:
+    secure: f5TKyz9iDRMlEdsNJBmKp+QYAc8szxmLrpVYjpFEcQocQCyf/0TmaEEKGpugmoGB8ok/5/Qm0KJGKbmDZPLIX9YBcMq8+uXNabqIJOyVJRFXn50xQfuKfJpJerWhww0CDQWKjuK7gBfdcG1PLSNEoeffXtYSq5QfT7jO8DGyzss=
   bucket: thorvarium
   skip_cleanup: true
   local_dir: bin
