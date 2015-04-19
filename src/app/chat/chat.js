@@ -1,5 +1,6 @@
 angular.module( 'thorvarium.chat', [
-  'ui.router'
+  'ui.router',
+  'luegg.directives'
 ])
 
 .config(function config( $stateProvider ) {
@@ -73,7 +74,6 @@ angular.module( 'thorvarium.chat', [
 
               $scope.$apply(function(){
                 $scope.messages.push(message);
-                $('.board').scrollTop($('.board').height());
               });
             }
 
@@ -90,7 +90,6 @@ angular.module( 'thorvarium.chat', [
 
               $scope.$apply(function(){
                 $scope.messages.push(message);
-                $('.board').scrollTop($('.board').height());
               });
             }
 
