@@ -25,6 +25,27 @@ angular.module( 'thorvarium', [
     $location.path( path );
   };
 
+  $scope.logout = function () {
+
+    if(angular.isDefined($.cookie('auth'))) {
+
+      var data = {auth: $.cookie('auth') };
+      $.post(apiUrl + '/logout', data, function(result) {
+        
+        $.removeCookie('auth');
+        $.removeCookie('user');
+
+        $scope.$apply(function() {
+          $scope.go('/login');
+        });
+
+      }).fail($scope.errorHandler);
+    
+    } else {
+      $scope.go('/login');
+    }
+  };
+
   $scope.errorHandler = function(error) {
         
     error = angular.isDefined(error.responseText) ? $.parseJSON(error.responseText) : {};
