@@ -1,4 +1,10 @@
 <div class="row">
+	<div class="col-xs-offset-8 col-xs-4 text-right user-details">
+		<span class="welcome">Welcome, {{ user.nickname }}</span>
+		<a href="javascript:void(0)" class="btn btn-default" ng-click="logout()">Logout</a>
+	</div>
+</div>
+<div class="row">
 	<div class="col-xs-4 members-list">
 		<div ng-repeat="member in members">
 			<a href="javascript:void(0)" class="member" ng-click="invite(member)">{{ member.nickname }}</a>
