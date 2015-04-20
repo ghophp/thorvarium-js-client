@@ -30,25 +30,41 @@ angular.module( 'thorvarium', [
     if(angular.isDefined($.cookie('auth'))) {
 
       var data = {auth: $.cookie('auth') };
-      $.post(apiUrl + '/logout', data, function(result) {
-        
-        $.removeCookie('auth');
-        $.removeCookie('user');
+      $.ajax({
+        type: 'POST',
+        url: apiUrl + '/logout',
+        data: data,
+        dataType: 'json',
+        success: function(result) {
 
-        $scope.$apply(function() {
-          $scope.go('/login');
-        });
+          $.removeCookie('auth');
+          $.removeCookie('user');
 
-      }).fail($scope.errorHandler);
-    
+          $scope.$apply(function() {
+            $scope.go('/login');
+          });
+
+        },
+        error: $rootScope.errorHandler
+      });
+
     } else {
       $scope.go('/login');
     }
   };
 
-  $scope.errorHandler = function(error) {
-        
-    error = angular.isDefined(error.responseText) ? $.parseJSON(error.responseText) : {};
+  $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
+    if (angular.isDefined( toState.data.pageTitle)) {
+      $scope.pageTitle = toState.data.pageTitle + ' | Thorvarium';
+    }
+  });
+
+  $rootScope.errorHandler = function(error) {
+
+    if (angular.isDefined(error.responseText) && error.responseText) {
+      error = $.parseJSON(error.responseText);  
+    }
+    
     if (angular.isDefined(error.cause)) {
 
       if (error.cause === 'user_not_found') {
@@ -61,12 +77,6 @@ angular.module( 'thorvarium', [
       alert('Some error occured, please try again!');
     }
   };
-  
-  $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
-    if (angular.isDefined( toState.data.pageTitle)) {
-      $scope.pageTitle = toState.data.pageTitle + ' | Thorvarium';
-    }
-  });
 
   if(angular.isDefined($.cookie('user'))) {
     $rootScope.user = $.parseJSON($.cookie('user'));
