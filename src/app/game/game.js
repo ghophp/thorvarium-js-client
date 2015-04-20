@@ -90,6 +90,7 @@ angular.module( 'thorvarium.game', [
   });
 
   $scope.$on('choosing', function() {
+
     $rootScope.ws.send(JSON.stringify({
       "type": "ready_to_turn"
     }));
@@ -98,6 +99,7 @@ angular.module( 'thorvarium.game', [
   $scope.ready = false;
   $scope.gaming = false;
   $scope.waiting = false;
+  $scope.abandon = false;
   $scope.countdown = 40;
 
   $scope.stepTimer = null;
@@ -145,12 +147,14 @@ angular.module( 'thorvarium.game', [
           break;
           case 'pre_turn':
             $scope.$apply(function(){
-              $scope.startTimer();
+              $scope.stopTimer();
               Game.turn(message.inputs);
             });
           break;
           case 'after_turn':
             $scope.$apply(function() {
+              $scope.abandon = true;
+              $scope.startTimer();
               if (Game.state == RUNNING) {
                 Game.serverState = message.players;
               } else {
@@ -161,6 +165,7 @@ angular.module( 'thorvarium.game', [
           case 'turn_start':
             $scope.$apply(function() {
               $scope.startTimer();
+              $scope.abandon = false;
               $scope.waiting = false;
               Game.turnStart(); 
             });

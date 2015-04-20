@@ -87,7 +87,6 @@ angular.module( 'thorvarium.game.loop', [
   this.mouseX = 0;
   this.mouseY = 0;
   this.state = null;
-  this.requestAnimationFrame = null;
 
   this.serverState = null;
 
@@ -113,7 +112,6 @@ angular.module( 'thorvarium.game.loop', [
     this.active = null;
     this.mouseX = 0;
     this.mouseY = 0;
-    this.requestAnimationFrame = null;
     this.serverState = null;
   };
 
@@ -126,11 +124,6 @@ angular.module( 'thorvarium.game.loop', [
     this.context = this.canvas.getContext("2d");
     this.canvas.width = SCREEN_WIDTH;
     this.canvas.height = SCREEN_HEIGHT;
-
-    this.requestAnimationFrame = $window.requestAnimationFrame || 
-      $window.webkitRequestAnimationFrame || 
-      $window.msRequestAnimationFrame || 
-      $window.mozRequestAnimationFrame;
 
     this.then = Date.now();
     $window.Game = this;
@@ -167,14 +160,12 @@ angular.module( 'thorvarium.game.loop', [
           if (angular.isDefined(curr)) {
 
             if (curr.person.life != person.life) {
-              console.log('diff', curr.person.life, person.life);
               curr.person.life = person.life;
             }
 
             curr.person.x = person.x;
             curr.person.y = person.y;
             curr.to = null;
-            console.log(curr.person);
           }
         });
       }
@@ -499,13 +490,14 @@ angular.module( 'thorvarium.game.loop', [
     that.now = Date.now();
     var delta = that.now - that.then;
 
-    if (that.state == RUNNING) {
+    if (that.state == RUNNING && delta < 22) {
       that.update(delta / 1000);
     }
     
     that.render();
     that.then = that.now;
-    that.requestAnimationFrame.call($window, that.main);
+
+    $window.requestAnimationFrame.call($window, that.main);
   };
 
   return this;
