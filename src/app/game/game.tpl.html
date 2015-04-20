@@ -2,6 +2,7 @@
 
 	<div class="time-to-choose">
 		<label>Timer:</label> {{countdown}}
+		<span ng-if="abandon">Waiting for the other player to respond...</span>
 	</div>
 
 	<div class="col-xs-12 choose" ng-if="!ready">
