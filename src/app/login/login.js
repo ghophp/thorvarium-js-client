@@ -25,24 +25,32 @@ angular.module( 'thorvarium.login', [
     if ($scope.nickname && $scope.password) {
       
       var data = {nickname: $scope.nickname, password: md5.createHash($scope.password) };
-      $.post(apiUrl + '/login', data, function(result) {
-        
-        if (typeof result.uuid !== 'undefined') {
+      $.ajax({
+        type: 'POST',
+        url: apiUrl + '/login',
+        data: data,
+        dataType: 'json',
+        success: function(result) {
+
+          if (typeof result.uuid !== 'undefined') {
           
-          $rootScope.user = result.user;
+            $rootScope.user = result.user;
 
-          $.cookie('auth', result.uuid, { expires: 7, path: '/' });
-          $.cookie('user', JSON.stringify($scope.user), { expires: 7, path: '/' });
+            $.cookie('auth', result.uuid, { expires: 7, path: '/' });
+            $.cookie('user', JSON.stringify($scope.user), { expires: 7, path: '/' });
 
-          $scope.$apply(function() {
-            $scope.go('/chat');
-          });
+            $scope.$apply(function() {
+              $scope.go('/chat');
+            });
 
-        } else {
-          $scope.errorHandler();
-        }
+          } else {
+            $rootScope.errorHandler();
+          }
 
-      }).fail($scope.errorHandler);
+        },
+        error: $rootScope.errorHandler
+      });
+      
     }
   };
 
