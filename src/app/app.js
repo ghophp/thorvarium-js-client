@@ -19,7 +19,7 @@ angular.module( 'thorvarium', [
 .run( function run () {
 })
 
-.controller( 'AppCtrl', function AppCtrl ( $rootScope, $scope, $location ) {
+.controller( 'AppCtrl', function AppCtrl ( $window, $rootScope, $scope, $location ) {
   
   $scope.go = function ( path ) {
     $location.path( path );
@@ -41,7 +41,7 @@ angular.module( 'thorvarium', [
           $.removeCookie('user');
 
           $scope.$apply(function() {
-            $scope.go('/login');
+            $window.location.reload();
           });
 
         },
