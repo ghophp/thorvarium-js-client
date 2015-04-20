@@ -1,5 +1,5 @@
 {
-	"api": "http://thorvarium.herokuapp.com",
-	"ws": "ws://thorvarium.herokuapp.com/ws",
+	"api": "https://thorvarium.herokuapp.com",
+	"ws": "wss://thorvarium.herokuapp.com/ws",
 	"assets": "http://thorvarium.s3-website-us-east-1.amazonaws.com/assets"
 }

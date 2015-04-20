@@ -36,8 +36,13 @@ angular.module( 'thorvarium.login', [
           
             $rootScope.user = result.user;
 
-            $.cookie('auth', result.uuid, { expires: 7, path: '/' });
-            $.cookie('user', JSON.stringify($scope.user), { expires: 7, path: '/' });
+            var cookieOpts = { 
+              expires: 7, 
+              path: '/'
+            };
+
+            $.cookie('auth', result.uuid, cookieOpts);
+            $.cookie('user', JSON.stringify($scope.user), cookieOpts);
 
             $scope.$apply(function() {
               $scope.go('/chat');
