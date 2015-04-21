@@ -461,7 +461,7 @@ angular.module( 'thorvarium.game.loop', [
 
   this.render = function () {
     var that = this;
-
+  
     this.context.drawImage(this.bgImage, 0, 0);
     
     _.each(this.players, function(player) {
@@ -486,18 +486,20 @@ angular.module( 'thorvarium.game.loop', [
 
   this.main = function () {
     var that = $window.Game;
+    if (that.context !== null) {
 
-    that.now = Date.now();
-    var delta = that.now - that.then;
+      that.now = Date.now();
+      var delta = that.now - that.then;
 
-    if (that.state == RUNNING && delta < 22) {
-      that.update(delta / 1000);
+      if (that.state == RUNNING && delta < 22) {
+        that.update(delta / 1000);
+      }
+      
+      that.render();
+      that.then = that.now;
+
+      $window.requestAnimationFrame.call($window, that.main);
     }
-    
-    that.render();
-    that.then = that.now;
-
-    $window.requestAnimationFrame.call($window, that.main);
   };
 
   return this;
