@@ -41,7 +41,7 @@ angular.module( 'thorvarium.chat', [
     }
   };
 
-  if (angular.isDefined($.cookie('auth'))) {
+  if (angular.isDefined($.cookie('auth')) && $.cookie('auth')) {
 
     $rootScope.ws = $rootScope.ws ? $rootScope.ws : new WebSocket(wsUrl);
     $rootScope.ws.onmessage = function(message) {

@@ -27,7 +27,7 @@ angular.module( 'thorvarium', [
 
   $scope.logout = function () {
 
-    if(angular.isDefined($.cookie('auth'))) {
+    if(angular.isDefined($.cookie('auth')) && $.cookie('auth')) {
 
       var data = {auth: $.cookie('auth') };
       $.ajax({
@@ -37,8 +37,8 @@ angular.module( 'thorvarium', [
         dataType: 'json',
         success: function(result) {
 
-          $.removeCookie('auth');
-          $.removeCookie('user');
+          $.removeCookie('auth', { path: '/' });
+          $.removeCookie('user', { path: '/' });
 
           $scope.$apply(function() {
             $window.location.reload();
@@ -78,7 +78,7 @@ angular.module( 'thorvarium', [
     }
   };
 
-  if(angular.isDefined($.cookie('user'))) {
+  if(angular.isDefined($.cookie('user')) && $.cookie('user')) {
     $rootScope.user = $.parseJSON($.cookie('user'));
   }
 
