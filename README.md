@@ -14,6 +14,6 @@ Basic angular stack `grunt-cli` and `bower`
 
 ### Running
 
-I recommend you to use `mongoose` to run the files statically like:
+To run the project and simulate the real invironment, you must (after build) set the THORVARIUM_BUILD env variable. This will configure the server to provide the assets from this project. We need the server to provide the assets, because we need that everything run in the same domain, so we can make use of cookies and do a basic auth process with websockets.
 
-	mongoose -document_root bin
+Take a look at the server: [thorvarium](https://github.com/ghophp/thorvarium)
