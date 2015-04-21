@@ -11,6 +11,7 @@
     "angular-ui-router": "~0.2",
     "angular-scroll-glue": "*",
     "angular-md5": "*",
+    "angular-pnotify": "*",
     "jquery.cookie": "*",
     "underscore": "*"
   }

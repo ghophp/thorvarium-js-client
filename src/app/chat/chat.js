@@ -16,7 +16,8 @@ angular.module( 'thorvarium.chat', [
   });
 })
 
-.controller( 'ChatCtrl', function ChatController( $rootScope, $scope, Game ) {
+.controller( 'ChatCtrl', ['$rootScope', '$scope', 'Game', 'notificationService', 
+  function ChatController( $rootScope, $scope, Game, $notify ) {
 
   $scope.message = '';
   $scope.members = [];
@@ -30,15 +31,49 @@ angular.module( 'thorvarium.chat', [
   };
 
   $scope.invite = function(user) {
-    if(confirm('You want to invite '+user.nickname+' to play?')) {
+
+    $notify.notify({
+      title: 'Confirmation Needed',
+      text: 'You want to invite '+user.nickname+' to play?',
+      addclass: 'confirmation',
+      hide: false,
+      icon: false,
+      confirm: {
+        confirm: true
+      },
+      buttons: {
+        closer: false,
+        sticker: false
+      },
+      history: {
+        history: false
+      }
+    }).get().on('pnotify.confirm', function() {
       $rootScope.ws.send(JSON.stringify({type: 'invitation', to: user.id}));
-    }
+    });
   };
 
   $scope.accept = function(invitation) {
-    if(confirm('You want to start the game with '+invitation.from.nickname+'?')) {
+
+    $notify.notify({
+      title: 'Confirmation Needed',
+      text: 'You want to start the game with '+invitation.from.nickname+'?',
+      addclass: 'confirmation',
+      hide: false,
+      icon: false,
+      confirm: {
+        confirm: true
+      },
+      buttons: {
+        closer: false,
+        sticker: false
+      },
+      history: {
+        history: false
+      }
+    }).get().on('pnotify.confirm', function() {
       $rootScope.ws.send(JSON.stringify({type: 'accept', from: invitation.from.id}));
-    }
+    });
   };
 
   if (angular.isDefined($.cookie('auth')) && $.cookie('auth')) {
@@ -118,4 +153,4 @@ angular.module( 'thorvarium.chat', [
     $scope.go('/login');
   }
 
-});
+}]);

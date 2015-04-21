@@ -65,12 +65,16 @@ module.exports = {
       'vendor/underscore/underscore-min.js',
       'vendor/angular/angular.js',
       'vendor/jquery/jquery.min.js',
+      'vendor/pnotify/pnotify.core.js',
+      'vendor/pnotify/pnotify.confirm.js',
+      'vendor/pnotify/pnotify.buttons.js',
       'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
       'vendor/placeholders/angular-placeholders-0.0.1-SNAPSHOT.min.js',
       'vendor/angular-ui-router/release/angular-ui-router.js',
       'vendor/jquery.cookie/jquery.cookie.js',
       'vendor/angular-md5/angular-md5.min.js',
-      'vendor/angular-scroll-glue/src/scrollglue.js'
+      'vendor/angular-scroll-glue/src/scrollglue.js',
+      'vendor/angular-pnotify/src/angular-pnotify.js',
     ],
     maps: [
       'vendor/underscore/underscore-min.map',

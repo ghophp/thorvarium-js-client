@@ -9,17 +9,30 @@ angular.module( 'thorvarium', [
   'thorvarium.game.loop',
   'thorvarium.game',
   'ui.bootstrap',
-  'ui.router'
+  'ui.router',
+  'jlareau.pnotify'
 ])
 
-.config( function myAppConfig ( $stateProvider, $urlRouterProvider ) {
+.config( function myAppConfig ( $stateProvider, $urlRouterProvider, notificationServiceProvider ) {
+
+  notificationServiceProvider.setDefaults({
+    styling: 'bootstrap3',
+    hide: false,
+    icon: false,
+    buttons: {
+      sticker: false
+    }
+  });
+  
   $urlRouterProvider.otherwise( '/home' );
+
 })
 
 .run( function run () {
 })
 
-.controller( 'AppCtrl', function AppCtrl ( $window, $rootScope, $scope, $location ) {
+.controller( 'AppCtrl', ['$window', '$rootScope', '$scope', '$location', 'notificationService',
+  function AppCtrl ( $window, $rootScope, $scope, $location, $notify ) {
   
   $scope.go = function ( path ) {
     $location.path( path );
@@ -65,19 +78,24 @@ angular.module( 'thorvarium', [
   $rootScope.errorHandler = function(error) {
 
     if (angular.isDefined(error.responseText) && error.responseText) {
-      error = $.parseJSON(error.responseText);  
+      try {
+        error = $.parseJSON(error.responseText);  
+      } catch(e) {
+        console.log(e);
+      }
+      
     }
     
     if (angular.isDefined(error.cause)) {
 
       if (error.cause === 'user_not_found') {
-        alert('User not found!');
+        $notify.error('User not found!');
       } else if (error.cause === 'invalid_params') {
-        alert('Invalid params!');
+        $notify.error('Invalid params!');
       }
 
     } else {
-      alert('Some error occured, please try again!');
+      $notify.error('Some error occured, please try again!');
     }
   };
 
@@ -87,7 +105,7 @@ angular.module( 'thorvarium', [
 
   $rootScope.ws = null;
 
-})
+}])
 
 ;
 

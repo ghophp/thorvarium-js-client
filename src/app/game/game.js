@@ -15,7 +15,8 @@ angular.module( 'thorvarium.game', [
   });
 })
 
-.controller( 'GameCtrl', function GameController( $rootScope, $scope, $timeout, Game, RUNNING ) {
+.controller( 'GameCtrl', ['$rootScope', '$scope', '$timeout', 'Game', 'notificationService', 'RUNNING', 
+  function GameController( $rootScope, $scope, $timeout, Game, $notify, RUNNING ) {
 
   $scope.startTimer = function() {
     $scope.countdown = 40;
@@ -44,7 +45,7 @@ angular.module( 'thorvarium.game', [
     Game.destroy();
     $rootScope.ws = null;
     $scope.go('/chat');
-    alert(message);
+    $notify.info(message);
   };
 
   $scope.turn = function() {
@@ -73,7 +74,7 @@ angular.module( 'thorvarium.game', [
       $scope.ready = true;
 
     } else {
-      alert('Please select your persons and weapons...');
+      $notify.info('Please select your persons and weapons!');
     }
   };
 
@@ -194,6 +195,6 @@ angular.module( 'thorvarium.game', [
   } else {
     $scope.go('/chat');
   }
-})
+}])
 
 ;

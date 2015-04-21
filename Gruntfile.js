@@ -280,7 +280,8 @@ module.exports = function ( grunt ) {
         },
         options: {
           modifyVars: {
-            imagePath : '"<%= general.assets %>"'
+            imagePath : '"<%= general.assets %>"',
+            'icon-font-path': '"<%= general.assets %>/fonts/"'
           }
         }
       },
@@ -292,7 +293,8 @@ module.exports = function ( grunt ) {
           cleancss: true,
           compress: true,
           modifyVars: {
-            imagePath : '"<%= general.assets %>"'
+            imagePath : '"<%= general.assets %>"',
+            'icon-font-path': '"<%= general.assets %>/fonts/"'
           }
         }
       }

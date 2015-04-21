@@ -11,6 +11,8 @@
  */
 
 @import '../../vendor/bootstrap/less/bootstrap.less';
+@import (less)'../../vendor/pnotify/pnotify.core.css';
+@import (less)'../../vendor/pnotify/pnotify.buttons.css';
 
 
 /**
@@ -24,6 +26,42 @@
 	display: block;
 	height: 100%;
 	width: 100%;
+}
+
+.ui-pnotify-container {
+	border-radius: 0;
+	box-shadow: none !important;
+	background-color: transparent;
+
+	&.alert-danger {
+		border-color: #A24341;
+	}
+	&.alert-info {
+		border-color: #31708f;
+	}
+	&.alert-warning {
+		border-color: #8a6d3b;
+	}
+	&.alert-success {
+		border-color: #3c763d;
+	}
+
+	.ui-pnotify-closer {
+		margin-top: 2px;
+		height: 16px;
+	}
+}
+
+.ui-pnotify {
+
+	&.confirmation {
+		.ui-pnotify-container {
+			&.alert-warning {
+				border-color: #42DCA3;
+				color: #42DCA3;
+			}
+		}
+	}
 }
 
 @import '../app/home/home.less';
