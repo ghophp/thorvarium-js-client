@@ -24,6 +24,9 @@ angular.module( 'thorvarium', [
   $scope.go = function ( path ) {
     $location.path( path );
   };
+  $scope.asset = function ( path ) {
+    return assetsUrl + '/' + path;
+  };
 
   $scope.logout = function () {
 
