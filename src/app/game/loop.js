@@ -141,7 +141,7 @@ angular.module( 'thorvarium.game.loop', [
         that.personsImages[p.id] = pImage;
         that.loaded.call(that);
       };
-      pImage.src = assetsUrl + "/images/person" + p.id + ".png";
+      pImage.src = assetsUrl + "/images/ship" + p.id + ".png";
     });
   };
 

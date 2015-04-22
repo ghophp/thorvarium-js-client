@@ -126,6 +126,19 @@ angular.module( 'thorvarium.game', [
     }
   };
 
+  $scope.personToSlot = function(personId) {
+
+    var person = _.find($scope.persons, function(p){
+      return p.id == personId;
+    });
+
+    return person ? person : { life: 0, speed: 0 };
+  };
+
+  $scope.playerNumber = function(n) {
+    return [$scope.players[n - 1]];
+  };
+
   if ($rootScope.ws && Game.id) {
 
     $scope.persons = angular.copy(Game.persons);
