@@ -72,53 +72,13 @@
 
 				<div class="row" ng-if="gaming">
 					<div class="col-xs-3 game-stats text-center">
-						<div class="player" ng-repeat="player in playerNumber(1)">
-							<h4>{{ player.user.nickname }}</h4>
-							<div class="person" style="background-color:{{person.color}};" ng-class="actived(player, key) ? 'active' : ''" ng-repeat="(key, person) in player.persons">
-								<div class="person-name">
-									<span>{{ person.person.name }}</span>
-									<div class="btn-group">
-										<label class="btn btn-primary" 
-											ng-model="person.weapon" 
-											ng-repeat="(key, weapon) in person.person.weapons" 
-											btn-radio="key">{{ weapon.name }}</label>
-									</div>
-								</div>
-								<div class="person-life">
-									<progressbar ng-if="person.person.life > 0" 
-										class="progress-striped" 
-										value="person.person.life" 
-										max="person.person.full">{{ person.lifePercent() }}%</progressbar>
-									<span ng-if="person.person.life <= 0">Dead</span>
-								</div>
-							</div>	
-						</div>
+						<player-stats players="players" current="1"></player-stats>
 					</div>
 					<div class="col-xs-6 text-center">
 						<div class="game-scenario"></div>
 					</div>
-					<div class="col-xs-3 game-stats text-center">
-						<div class="player" ng-repeat="player in playerNumber(2)">
-							<h4>{{ player.user.nickname }}</h4>
-							<div class="person" style="background-color:{{person.color}};" ng-class="actived(player, key) ? 'active' : ''" ng-repeat="(key, person) in player.persons">
-								<div class="person-name">
-									<span>{{ person.person.name }}</span>
-									<div class="btn-group">
-										<label class="btn btn-primary" 
-											ng-model="person.weapon" 
-											ng-repeat="(key, weapon) in person.person.weapons" 
-											btn-radio="key">{{ weapon.name }}</label>
-									</div>
-								</div>
-								<div class="person-life">
-									<progressbar ng-if="person.person.life > 0" 
-										class="progress-striped" 
-										value="person.person.life" 
-										max="person.person.full">{{ person.lifePercent() }}%</progressbar>
-									<span ng-if="person.person.life <= 0">Dead</span>
-								</div>
-							</div>	
-						</div>
+					<div class="col-xs-3 game-stats text-center" ng-if="players">
+						<player-stats players="players" current="2"></player-stats>
 					</div>
 				</div>
 
