@@ -1,8 +1,84 @@
+.intro {
+	&.game-intro {
+		background: url("@{imagePath}/images/blue.png") top left repeat;
+		text-align: left;
+	}
+}
+
 .time-to-choose {
 	margin-bottom: 20px;
+
+	h1 {
+		margin: 0;
+	}
 }
 .slot {
-	margin-bottom: 20px;
+
+	.card {
+	    padding-top: 20px;
+	    margin: 10px 0 20px 0;
+	    background-color: rgba(214, 224, 226, 0.2);
+	    border-top-width: 0;
+	    border-bottom-width: 2px;
+	    -webkit-border-radius: 3px;
+	    -moz-border-radius: 3px;
+	    border-radius: 3px;
+	    -webkit-box-shadow: none;
+	    -moz-box-shadow: none;
+	    box-shadow: none;
+	    -webkit-box-sizing: border-box;
+	    -moz-box-sizing: border-box;
+	    box-sizing: border-box;
+
+	    .weapon {
+	    	label {
+	    		font-size: 8px;
+				padding: 3px 6px;
+	    	}
+	    }
+	}
+
+	.card .card-body {
+	    padding: 0 20px;
+	    margin-top: 20px;
+	}
+
+	.card.hovercard {
+	    position: relative;
+	    padding-top: 0;
+	    overflow: hidden;
+	    text-align: center;
+	    background-color: rgba(214, 224, 226, 0.2);
+
+	    .person-desc {
+	    	padding-top: 28px;
+	    }
+	}
+
+	.card.hovercard .avatar {
+	    position: relative;
+	    margin: 24px 0 10px 0;
+	}
+
+	.card.hovercard .info {
+	    padding: 4px 8px 10px;
+	}
+
+	.card.hovercard .info .title {
+	    h2 {
+	    	margin: 0 0 6px;
+	    }
+	}
+
+	.card.hovercard .bottom {
+	    padding: 0 20px;
+	    margin-bottom: 17px;
+	    margin-top: 28px;
+
+	    h5 {
+	    	margin: 0 0 6px;
+	    }
+	}
 }
 
 .game-stats {
@@ -29,4 +105,8 @@
 			}
 		}
 	}
+}
+
+.ready {
+	font-size: 28px;
 }

@@ -1,94 +1,134 @@
-<div class="row">
-
-	<div class="time-to-choose">
-		<label>Timer:</label> {{countdown}}
-		<span ng-if="abandon">Waiting for the other player to respond...</span>
-	</div>
-
-	<div class="col-xs-12 choose" ng-if="!ready">
-
-		<div class="row slot" ng-repeat="slot in slots">
-
-			<div class="col-xs-12 text-center person">
-				<h3>{{ slot.name }}</h3>
-				<div class="btn-group">
-					<label class="btn btn-primary" 
-						ng-model="slot.id" 
-						ng-repeat="person in persons" 
-						btn-radio="person.id">{{ person.name }}</label>
-				</div>
-			</div>
-
-			<div class="col-xs-12">
-				
-				<div class="col-xs-6 weapon text-center">
-					<h3>Weapon 1</h3>
-					<div class="btn-group">
-						<label class="btn btn-primary" 
-							ng-model="slot.weapon1" 
-							ng-repeat="weapon in weapons" 
-							btn-radio="weapon.id">{{ weapon.name }}</label>
-					</div>
-				</div>
-
-				<div class="col-xs-6 weapon text-center">
-					<h3>Weapon 2</h3>
-					<div class="btn-group">
-						<label class="btn btn-primary" 
-							ng-model="slot.weapon2" 
-							ng-repeat="weapon in weapons" 
-							btn-radio="weapon.id">{{ weapon.name }}</label>
-					</div>
-				</div>
-
-			</div>
-
-		</div>
-
-		<div class="row">
-			<div class="col-xs-12 text-center">
-				<button class="btn btn-default" type="button" ng-click="options()">Ready!</button>
-			</div>
-		</div>
+<header class="intro game-intro">
+	<div class="intro-body">
+		<div class="container">
 		
-	</div>
+			<div class="row">
 
-	<div class="waiting row" ng-if="ready && !gaming">
-		<div class="col-xs-12 text-center"><label>Waiting for the other player...</label></div>
-	</div>
+				<div class="col-xs-12 time-to-choose">
+					<h1>Timer: {{countdown}} <small ng-if="abandon">Waiting for the other player to respond...</small></h1>
+				</div>
 
-	<div class="row" ng-if="gaming">
-		<div class="col-xs-3 game-stats">
-			<div class="player" ng-repeat="player in players">
-				<p>{{ player.user.nickname }}</p>
-				<div class="person" style="background-color:{{person.color}};" ng-class="actived(player, key) ? 'active' : ''" ng-repeat="(key, person) in player.persons">
-					<div class="person-name">
-						<span>{{ person.person.name }}</span>
-						<div class="btn-group">
-							<label class="btn btn-primary" 
-								ng-model="person.weapon" 
-								ng-repeat="(key, weapon) in person.person.weapons" 
-								btn-radio="key">{{ weapon.name }}</label>
+				<div class="choose" ng-if="!ready">
+
+					<div class="col-lg-4 slot" ng-repeat="slot in slots">
+
+						<div class="card hovercard">
+							<div class="avatar row">
+								<div class="col-xs-4 col-xs-offset-2">
+									<img ng-src="{{ asset('/images/ship.png') }}">
+								</div>
+								<div class="col-xs-6 text-left person-desc">
+									Life: {{ personToSlot(slot.id).life }}<br>
+									Speed: {{ personToSlot(slot.id).speed }}<br>
+								</div>
+							</div>
+							<div class="info">
+								<div class="title">
+									<h2>{{ slot.name }}</h2>
+								</div>
+								<div class="btn-group">
+									<label class="btn btn-default" 
+										ng-model="slot.id" 
+										ng-repeat="person in persons" 
+										btn-radio="person.id">{{ person.name }}</label>
+								</div>
+							</div>
+							<div class="row bottom">
+								<div class="col-xs-6 weapon text-center">
+									<h5>Weapon 1</h5>
+									<div class="btn-group">
+										<label class="btn btn-default" 
+											ng-model="slot.weapon1" 
+											ng-repeat="weapon in weapons" 
+											btn-radio="weapon.id">{{ weapon.name }}</label>
+									</div>
+								</div>
+
+								<div class="col-xs-6 weapon text-center">
+									<h5>Weapon 2</h5>
+									<div class="btn-group">
+										<label class="btn btn-default" 
+											ng-model="slot.weapon2" 
+											ng-repeat="weapon in weapons" 
+											btn-radio="weapon.id">{{ weapon.name }}</label>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+					<div class="row">
+						<div class="col-xs-12 text-center">
+							<button class="btn btn-default ready" type="button" ng-click="options()">Ready!</button>
 						</div>
 					</div>
-					<div class="person-life">
-						<progressbar ng-if="person.person.life > 0" 
-							class="progress-striped" 
-							value="person.person.life" 
-							max="person.person.full">{{ person.lifePercent() }}%</progressbar>
-						<span ng-if="person.person.life <= 0">Dead</span>
-					</div>
-				</div>	
-			</div>
-		</div>
-		<div class="col-xs-9">
-			<div class="game-scenario"></div>
-		</div>
-	</div>
+					
+				</div>
 
-	<div class="row" ng-if="gaming">
-		<div class="col-xs-12 text-center">
-			<button class="btn btn-default" type="button" ng-click="turn()" ng-disabled="waiting">Ready!</button>
+				<div class="waiting row" ng-if="ready && !gaming">
+					<div class="col-xs-12 text-center"><h2>Waiting for the other player...</h2></div>
+				</div>
+
+				<div class="row" ng-if="gaming">
+					<div class="col-xs-3 game-stats text-center">
+						<div class="player" ng-repeat="player in playerNumber(1)">
+							<h4>{{ player.user.nickname }}</h4>
+							<div class="person" style="background-color:{{person.color}};" ng-class="actived(player, key) ? 'active' : ''" ng-repeat="(key, person) in player.persons">
+								<div class="person-name">
+									<span>{{ person.person.name }}</span>
+									<div class="btn-group">
+										<label class="btn btn-primary" 
+											ng-model="person.weapon" 
+											ng-repeat="(key, weapon) in person.person.weapons" 
+											btn-radio="key">{{ weapon.name }}</label>
+									</div>
+								</div>
+								<div class="person-life">
+									<progressbar ng-if="person.person.life > 0" 
+										class="progress-striped" 
+										value="person.person.life" 
+										max="person.person.full">{{ person.lifePercent() }}%</progressbar>
+									<span ng-if="person.person.life <= 0">Dead</span>
+								</div>
+							</div>	
+						</div>
+					</div>
+					<div class="col-xs-6 text-center">
+						<div class="game-scenario"></div>
+					</div>
+					<div class="col-xs-3 game-stats text-center">
+						<div class="player" ng-repeat="player in playerNumber(2)">
+							<h4>{{ player.user.nickname }}</h4>
+							<div class="person" style="background-color:{{person.color}};" ng-class="actived(player, key) ? 'active' : ''" ng-repeat="(key, person) in player.persons">
+								<div class="person-name">
+									<span>{{ person.person.name }}</span>
+									<div class="btn-group">
+										<label class="btn btn-primary" 
+											ng-model="person.weapon" 
+											ng-repeat="(key, weapon) in person.person.weapons" 
+											btn-radio="key">{{ weapon.name }}</label>
+									</div>
+								</div>
+								<div class="person-life">
+									<progressbar ng-if="person.person.life > 0" 
+										class="progress-striped" 
+										value="person.person.life" 
+										max="person.person.full">{{ person.lifePercent() }}%</progressbar>
+									<span ng-if="person.person.life <= 0">Dead</span>
+								</div>
+							</div>	
+						</div>
+					</div>
+				</div>
+
+				<div class="row" ng-if="gaming">
+					<div class="col-xs-12 text-center">
+						<button class="btn btn-default ready" type="button" ng-click="turn()" ng-disabled="waiting">Ready!</button>
+					</div>
+				</div>
+			</div>
+
 		</div>
 	</div>
-</div>
+</header>

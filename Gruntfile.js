@@ -277,6 +277,12 @@ module.exports = function ( grunt ) {
       build: {
         files: {
           '<%= build_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.css': '<%= app_files.less %>'
+        },
+        options: {
+          modifyVars: {
+            imagePath : '"<%= general.assets %>"',
+            'icon-font-path': '"<%= general.assets %>/fonts/"'
+          }
         }
       },
       compile: {
@@ -285,7 +291,11 @@ module.exports = function ( grunt ) {
         },
         options: {
           cleancss: true,
-          compress: true
+          compress: true,
+          modifyVars: {
+            imagePath : '"<%= general.assets %>"',
+            'icon-font-path': '"<%= general.assets %>/fonts/"'
+          }
         }
       }
     },

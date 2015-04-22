@@ -1,3 +1,9 @@
+.intro {
+	&.chat-intro {
+		background: url("@{imagePath}/images/blue.png") top left repeat;
+		text-align: left;    
+	}
+}
 .user-details {
 	margin-bottom: 10px;
 	
@@ -6,31 +12,61 @@
 	}
 }
 .members-list {
-	background: #EAEAEA;
+	padding: 0;
+	max-height: 300px;
+	overflow: auto;
 	height: 300px;
-	overflow-y: auto;
 
 	.member {
 		display: block;
-		margin: 7px 0;
+		padding: 5px;
+		border-bottom: 1px solid #ddd;
+		margin: 0;
+
+		.media-heading {
+			margin: 5px 0 0;
+		}
+		.media-body {
+			color: #fff;
+		}
+	}
+	.member:hover {
+		cursor: pointer;
+		background-color: #666;
+
+		.label.hide {
+			display: inline-block !important;
+		}
 	}
 }
 .board {
 	background: #CCC;
 	height: 300px;
 	overflow-y: auto;
+	color: #666;
 
 	.invitation, .message {
 		display: block;
 		margin: 7px 0;
 
 		.user {
+			font-family: "Montserrat","Helvetica Neue",Helvetica,Arial,sans-serif;
+			color: #4C4C4C;
 			font-weight: 600;
 		}
 	}
 
 	.invitation {
-		color: red;
+
+		.label-neon {
+			font-size: 10px;
+			padding: 2px 7px;
+
+			&:hover {
+				background: #9445F7;
+				color: #fff;
+			}
+		}
 	}
 }
 
