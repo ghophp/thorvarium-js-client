@@ -78,16 +78,8 @@ angular.module( 'thorvarium.game', [
     }
   };
 
-  $scope.actived = function(player, person) {
-    return player.user.id === $rootScope.user.id && person === $scope.active;
-  };
-
   $scope.$on('loaded', function() {
     $scope.players = Game.players;
-  });
-
-  $scope.$on('actived', function() {
-    $scope.active = Game.active;
   });
 
   $scope.$on('choosing', function() {
@@ -133,10 +125,6 @@ angular.module( 'thorvarium.game', [
     });
 
     return person ? person : { life: 0, speed: 0 };
-  };
-
-  $scope.playerNumber = function(n) {
-    return [$scope.players[n - 1]];
   };
 
   if ($rootScope.ws && Game.id) {
@@ -209,5 +197,34 @@ angular.module( 'thorvarium.game', [
     $scope.go('/chat');
   }
 }])
+
+.directive('playerStats', function() {
+  return {
+    restrict: 'E',
+    scope: {
+      players: '=players',
+      current: '=current'
+    },
+    templateUrl: 'game/stats.tpl.html',
+    controller: function($rootScope, $scope) {
+
+      $scope.player = null;
+
+      $scope.$watch('players', function(oldValue, newValue) {
+        if (angular.isDefined($scope.players)) {
+          $scope.player = $scope.players[$scope.current - 1];
+        }
+      });
+
+      $scope.$on('actived', function() {
+        $scope.active = Game.active;
+      });
+
+      $scope.actived = function(player, person) {
+        return player.user.id === $rootScope.user.id && person === $scope.active;
+      };
+    }
+  };
+})
 
 ;

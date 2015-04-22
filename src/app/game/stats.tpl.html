@@ -1,0 +1,21 @@
+<div class="player" ng-if="player">
+	<h4>{{ player.user.nickname }}</h4>
+	<div class="person" style="background-color:{{person.color}};" ng-class="actived(player, key) ? 'active' : ''" ng-repeat="(key, person) in player.persons">
+		<div class="person-name">
+			<span>{{ person.person.name }}</span>
+			<div class="btn-group">
+				<label class="btn btn-primary" 
+					ng-model="person.weapon" 
+					ng-repeat="(key, weapon) in person.person.weapons" 
+					btn-radio="key">{{ weapon.name }}</label>
+			</div>
+		</div>
+		<div class="person-life">
+			<progressbar ng-if="person.person.life > 0" 
+				class="progress-striped" 
+				value="person.person.life" 
+				max="person.person.full">{{ person.lifePercent() }}%</progressbar>
+			<span ng-if="person.person.life <= 0">Dead</span>
+		</div>
+	</div>	
+</div>
