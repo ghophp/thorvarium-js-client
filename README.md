@@ -20,4 +20,4 @@ Take a look at the server: [thorvarium](https://github.com/ghophp/thorvarium)
 
 ### Play Online
 
-Here is the automatic deployed version at heroku: [play](thorvarium.herokuapp.com/game/index.html)
+Here is the automatic deployed version at heroku: [play](https://thorvarium.herokuapp.com/game/index.html)
