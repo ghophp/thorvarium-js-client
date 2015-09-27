@@ -104,6 +104,36 @@ angular.module( 'thorvarium', [
   }
 
   $rootScope.ws = null;
+  $rootScope.onMessageHandler = null;
+
+  $rootScope.messageWrapper = function(message, callback) {
+    
+    message = $.parseJSON(message.data);
+    console.log('Received message: ', message);
+
+    if (angular.isDefined(message.type)) {
+
+        switch(message.type) {
+          case 'ping':
+            $rootScope.ws.send(JSON.stringify({"type": "pong"}));
+            break;
+          default:
+            callback(message);
+            break;
+        }
+    }
+  };
+
+  $rootScope.$watch('ws', function(newValue, oldValue) {
+    if ($rootScope.ws != null) {
+      $rootScope.ws.onmessage = function(message) {
+        $rootScope.messageWrapper(message, $rootScope.onMessageHandler);
+      };
+      $rootScope.ws.onclose = function() {
+        $notify.error('Your connection with the server was lost.');
+      };
+    }
+  });
 
 }])
 

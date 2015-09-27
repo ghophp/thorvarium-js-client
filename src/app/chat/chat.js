@@ -25,8 +25,12 @@ angular.module( 'thorvarium.chat', [
 
   $scope.send = function() {
     if ($scope.message && $rootScope.ws) {
-      $rootScope.ws.send(JSON.stringify({type: 'message', content: $scope.message}));
-      $scope.message = '';
+      if ($scope.message.length > 140) {
+        $notify.error('Please don\'t abuse on the message size!');
+      } else {
+        $rootScope.ws.send(JSON.stringify({type: 'message', content: $scope.message}));
+        $scope.message = '';  
+      }
     }
   };
 
@@ -79,73 +83,67 @@ angular.module( 'thorvarium.chat', [
   if (angular.isDefined($.cookie('auth')) && $.cookie('auth')) {
 
     $rootScope.ws = $rootScope.ws ? $rootScope.ws : new WebSocket(wsUrl);
-    $rootScope.ws.onmessage = function(message) {
+    $rootScope.onMessageHandler = function(message) {
       
-      message = $.parseJSON(message.data);
-      console.log('Received message: ', message);
+      switch(message.type) {
+        case 'members':
 
-      if (angular.isDefined(message.type)) {
+          $scope.$apply(function(){
+            $scope.members = _.filter(message.value, function(m) {
+              return m.id != $rootScope.user.id;
+            });
+          });
 
-        switch(message.type) {
-          case 'members':
+        break;
+        case 'message':
+
+          var user = message.user == $scope.user.id ? angular.copy($scope.user) : 
+          _.find($scope.members, function(x) {
+            return x.id == message.user;
+          });
+
+          if (angular.isDefined(user)) {
+
+            message.user = user;
 
             $scope.$apply(function(){
-              $scope.members = _.filter(message.value, function(m) {
-                return m.id != $rootScope.user.id;
-              });
+              $scope.messages.push(message);
             });
+          }
 
           break;
-          case 'message':
+        case 'invitation':
 
-            var user = message.user == $scope.user.id ? angular.copy($scope.user) : 
-            _.find($scope.members, function(x) {
-              return x.id == message.user;
+          var inviter = _.find($scope.members, function(x) {
+            return x.id == message.from;
+          });
+
+          if (angular.isDefined(inviter)) {
+
+            message.from = inviter;
+
+            $scope.$apply(function(){
+              $scope.messages.push(message);
             });
-
-            if (angular.isDefined(user)) {
-
-              message.user = user;
-
-              $scope.$apply(function(){
-                $scope.messages.push(message);
-              });
-            }
+          }
 
           break;
-          case 'invitation':
+        case 'game':
 
-            var inviter = _.find($scope.members, function(x) {
-              return x.id == message.from;
+          if (angular.isDefined(message.id)) {
+
+            $scope.$apply(function(){
+              
+              Game.create(message.id, 
+                message.persons,
+                message.weapons,
+                new Date(message.now));
+
+              $scope.go('/game');
             });
-
-            if (angular.isDefined(inviter)) {
-
-              message.from = inviter;
-
-              $scope.$apply(function(){
-                $scope.messages.push(message);
-              });
-            }
+          }            
 
           break;
-          case 'game':
-
-            if (angular.isDefined(message.id)) {
-
-              $scope.$apply(function(){
-                
-                Game.create(message.id, 
-                  message.persons,
-                  message.weapons,
-                  new Date(message.now));
-
-                $scope.go('/game');
-              });
-            }            
-
-            break;
-        }
       }
     };
 
