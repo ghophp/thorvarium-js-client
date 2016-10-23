@@ -1,5 +1,5 @@
 {
-	"api": "http://127.0.0.1:9000",
-	"ws": "ws://127.0.0.1:9000/ws",
-	"assets": "http://127.0.0.1:9000/game/assets"
+	"api": "http://localhost:9000",
+	"ws": "ws://localhost:9000/ws",
+	"assets": "http://localhost:9000/game/assets"
 }

@@ -238,23 +238,6 @@ module.exports = function ( grunt ) {
     },
 
     /**
-     * `ngAnnotate` annotates the sources before minifying. That is, it allows us
-     * to code without the array syntax.
-     */
-    ngAnnotate: {
-      compile: {
-        files: [
-          {
-            src: [ '<%= app_files.js %>' ],
-            cwd: '<%= build_dir %>',
-            dest: '<%= build_dir %>',
-            expand: true
-          }
-        ]
-      }
-    },
-
-    /**
      * Minify the sources!
      */
     uglify: {
@@ -571,7 +554,7 @@ module.exports = function ( grunt ) {
    * minifying your code.
    */
   grunt.registerTask( 'compile', [
-    'less:compile', 'copy:compile_assets', 'ngAnnotate', 'concat:compile_js', 'uglify', 'index:compile'
+    'less:compile', 'copy:compile_assets', 'concat:compile_js', 'uglify', 'index:compile'
   ]);
 
   /**

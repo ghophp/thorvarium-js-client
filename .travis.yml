@@ -5,7 +5,7 @@ env: ENVIRONMENT=production
 before_script:
 - npm install
 - npm install bower
-- bower install
+- bower install --force
 - npm install grunt-cli
 - grunt
 deploy:
